@@ -151,7 +151,7 @@ Backpropagation Through Time
 Since RNN is a type of Neural network, learning process or calculation of gradients is also achieved by Backpropagation. In case of RNNs, Backpropagation is called as Backpropagation Through Time (BPTT) and is different from traditional backpropagation. Now as shown above, the basic equation of RNNs is 
 <br>*st=f(Uxt + Wst-1)
 <br>ot=softmax(Vst)*
-Taking our loss, or error, to be the cross entropy loss.
+<br>Taking our loss, or error, to be the cross entropy loss.
 <br>![](/images/p39.png)
 <br>In above equation, yt  is the correct word at time step t, and   is our prediction. Taking the full sequence as one training example, hence the total error is the sum of the errors at each time step (word).
 <br>![](/images/p40.png) 
