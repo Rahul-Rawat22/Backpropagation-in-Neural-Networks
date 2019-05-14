@@ -91,19 +91,19 @@ Let's imagine that we've made a small change Δwljk to some weight in the networ
 <p>Weights are just filters which are also called as kernels, convolution matrices, or masks. The matrix dot products are replaced by convolution operations both in feed forward and backpropagation.</p>
 The convolution equation of the input at layer l is given by:
 <br>![](/images/p18.png)
-Where,
-i.	oli,j is the output vector at layer l given by oli,j=f(xli,j)
-ii.	f(⋅) is the activation function.
+<br>Where,
+<br>i.	oli,j is the output vector at layer l given by oli,j=f(xli,j)<br>
+ii.	f(⋅) is the activation function.<br>
 iii.	xli,j is the convolved input vector at layer l plus the bias represented as 
 <br>![](/images/p19.png) 
-iv.	wlm,n is the weight matrix connecting neurons of layer l with neurons of layer l−1.
+<br>iv.	wlm,n is the weight matrix connecting neurons of layer l with neurons of layer l−1.
 
 <br>After the forward pass, for a total of P predictions, the predicted network outputs yp and their corresponding targeted values tp the mean squared error is given by:
 <br>![](/images/p20.png) 
 <br>For the purpose of simplicity, we shall use the case where the input image is grayscale i.e single channel C=1
 The output from the convolution procedure is as follows:
 <br>![](/images/p21.png) 
-<br<Please note that the above equation is for C=1. In case when we have 3 channels, the output convolution equation can be represented as below:
+<br>Please note that the above equation is for C=1. In case when we have 3 channels, the output convolution equation can be represented as below:
 <br>![](/images/p22.png)  
 <br>Learning in this network will be achieved by adjusting the weights such that yp is as close as possible or equals to corresponding tp. In the classical backpropagation algorithm, the weights are changed according to the gradient descent direction of an error surface E. 
 <br>![](/images/p23.png) 
@@ -116,8 +116,8 @@ The output from the convolution procedure is as follows:
 <br>Putting the value of xli,j (which is the convolved input vector at layer l plus the bias) in above equation gives
 <br>![](/images/p26.png)  
 <br>Further expanding the summations in above equation and taking the partial derivatives for all the components results in zero values for all except the components where m=m′ and n=n′ in wlm,nol−1i+m,j+n
-<br>![](/images/p27.png)  …(2)
-<br>Substituting  eq 2 in eq 1 gives
+<br>![](/images/p27.png)  …(2)<br>
+<br>Substituting  eq 2 in eq 1 gives<br>
 <br>![](/images/p28.png)  
 <br>The summations in Eq 3 represents a collection of all the gradients δli,j coming from all the outputs in layer l.
 <br>To obtain the gradients w.r.t filter maps, we have a cross-correlation which is transformed into a convolution by flipping the delta matrix. the flipped delta matrix is shown below:
@@ -130,9 +130,9 @@ Now we will obtain the new set of weights with convolution operation as is shown
 <br>![](/images/p32.png)  
 <br>![](/images/p33.png)   
 <br>From the diagram above, we can see that region in the output which is affected by pixel xi′,j′ from the input is the region in the output bounded by the dashed lines where the top left corner pixel is given by (i′−k1+1,j′−k2+1) and the bottom right corner pixel is given by (i′,j′).
-<br>Using chain rule and introducing sums give us the following equation:
+<br>Using chain rule and introducing sums give us the following equation:<br>
 <br>![](/images/p34.png)  
-replacing the value of xl+1i′−m,j′−n  and expanding this part of the equation gives us:
+<br>replacing the value of xl+1i′−m,j′−n  and expanding this part of the equation gives us:<br>
 <br>![](/images/p35.png)   
 <br>Taking the partial derivatives for all the components results in zero values for all except the components where m′=m and n′=n, so that f(xli′−m+m′,j′−n+n′) becomes f(xli′,j′) and wl+1m′,n′ becomes wl+1m,n
 <br>![](/images/p36.png)  
@@ -166,7 +166,7 @@ From the above equation, it is clear that     only depends on the values at the 
 Gradient w.r.t W:
 Applying chain rule we get :
  <br>![](/images/p43.png) 
-<br>However, for E3, s3=tanh(Ux3 + Ws2), ie it depends on s2, which depend on s1 and so on. Hence for taking the derivative W we cannot take treat s2 as a constant. Therefore, we will apply chain rule: 
+<br>However, for ![](/images/p65.png) , ie it depends on s2, which depend on s1 and so on. Hence for taking the derivative W we cannot take treat s2 as a constant. Therefore, we will apply chain rule: 
 <br>![](/images/p44.png)  
 Since, W is used in every step up to the output we care about(till 3), we need to backpropagate gradients from t=3 through the network all the way to t=0:
 <br>![](/images/p45.png)  
@@ -182,23 +182,22 @@ After the addition operation, the long term state is copied and passed through t
 The 3 gates perform the following functions:
 *	The forget gate (controlled by f(t)) controls which parts of the long-term state should be erased. 
 *	The input gate (controlled by i(t)) controls which parts of g(t) should be added to the long-term state (this is why we said it was only “partially stored”). 
-*	The output gate (controlled by (t)) controls which parts of the long-term state should be read and output at this time step (both to h(t)) and y(t).
-**Forward Pass: Unrolled Network**
-The unrolled network during the forward pass is shown below. The gates have not been shown for brevity. You can see that the cell state at time T, cT is responsible for computing hT as well as the next cell state cT+1. At each time step, the cell output hT is shown to be passed to some more layers on which a cost function CT is computed, as the way an LSTM would be used in a typical application like captioning or language modeling.
+*	The output gate (controlled by (t)) controls which parts of the long-term state should be read and output at this time step (both to h(t)) and y(t).<br>
+<br>**Forward Pass: Unrolled Network**<br>
+<br>The unrolled network during the forward pass is shown below. The gates have not been shown for brevity. You can see that the cell state at time T, cT is responsible for computing hT as well as the next cell state cT+1. At each time step, the cell output hT is shown to be passed to some more layers on which a cost function CT is computed, as the way an LSTM would be used in a typical application like captioning or language modeling.
 <br>![](/images/p47.png) 
  
 *ht= ot⊙tanh(ct)*
 <br>*ct=it⊙at+ft⊙ct−1*
 <br>*zt =W×It*
-
-**Backward Pass: Unrolled Network**
+<br>
+<br>**Backward Pass: Unrolled Network**
 <br>![](/images/p48.png) 
 <br>The unrolled network during the backward pass is shown above. All the arrows in the previous image have now changed their direction. The cell state at time T, cT receives gradients from hT as well as the next cell state cT +1. At any time step T, these two gradients are accumulated before being backpropagated to the layers below the cell and the previous time steps.
-Every gate in a circuit diagram gets some inputs and can right away compute two things: 1. its output value and 2. the local gradient of its inputs with respect to its output value.
-once the forward pass is over, during backpropagation the gate will eventually learn about the gradient of its output value on the final output of the entire circuit. Chain rule says that the gate should take that gradient and multiply it into every gradient it normally computes for all of its inputs.
+Every gate in a circuit diagram gets some inputs and can right away compute two things: 1. its output value and 2. the local gradient of its inputs with respect to its output value. Once the forward pass is over, during backpropagation the gate will eventually learn about the gradient of its output value on the final output of the entire circuit. Chain rule says that the gate should take that gradient and multiply it into every gradient it normally computes for all of its inputs.
 Backpropagation can be thought of as gates communicating to each other (through the gradient signal) whether they want their outputs to increase or decrease (and how strongly), so as to make the final output value higher.
 <br>
-**Backward Pass: Output**
+<br>**Backward Pass: Output**
 <br>![](/images/p49.png) 
 <br>Since we have obtained the value of ht  from the forward pass hence for Error E, δht =∂E/∂ht. 
 Now for Backpropagation, we need to find the derivative δot,δct <br>
