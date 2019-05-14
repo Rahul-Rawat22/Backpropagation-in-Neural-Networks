@@ -106,7 +106,7 @@ The output from the convolution procedure is as follows:
 <br>![](/images/p22.png)  
 <br>Learning in this network will be achieved by adjusting the weights such that yp is as close as possible or equals to corresponding tp. In the classical backpropagation algorithm, the weights are changed according to the gradient descent direction of an error surface E. 
 <br>![](/images/p23.png) 
-###### Backpropagation
+#### Backpropagation
 <br>We need to perform 2 updates for Backpropagation. For weights and for Deltas.Also, we need to compute ∂E/∂wlm′,n′   which can be described as how the change in a single pixel wm′,n′ in the weight kernel affects the loss function E.
 <br>In the below image, it is clear that the yellow pixel in kernel makes a contribution in all the products during forward propagation. This means that pixel wm′,n′ will eventually affect all the elements in the output feature map.
 <br>![](/images/p24.png) 
@@ -152,7 +152,7 @@ st=f(Uxt + Wst-1)
 ot=softmax(Vst)
 Taking our loss, or error, to be the cross entropy loss.
 <br>![](/images/p39.png)
-In above equation, yt  is the correct word at time step t, and   is our prediction. Taking the full sequence as one training example, hence the total error is the sum of the errors at each time step (word).
+<br>In above equation, yt  is the correct word at time step t, and   is our prediction. Taking the full sequence as one training example, hence the total error is the sum of the errors at each time step (word).
 <br>![](/images/p40.png) 
 We will calculate the gradients of errors w.r.t U,V and W and then learn the best parameters using Stochastic Gradient Descent.
 Taking the sum of gradients at each time step for one training example
@@ -165,7 +165,7 @@ From the above equation, it is clear that     only depends on the values at the 
 Gradient w.r.t W:
 Applying chain rule we get :
  <br>![](/images/p43.png) 
-However, for E3, s3=tanh(Ux3 + Ws2), ie it depends on s2, which depend on s1 and so on. Hence for taking the derivative W we cannot take treat s2 as a constant. Therefore, we will apply chain rule: 
+<br>However, for E3, s3=tanh(Ux3 + Ws2), ie it depends on s2, which depend on s1 and so on. Hence for taking the derivative W we cannot take treat s2 as a constant. Therefore, we will apply chain rule: 
 <br>![](/images/p44.png)  
 Since, W is used in every step up to the output we care about(till 3), we need to backpropagate gradients from t=3 through the network all the way to t=0:
 <br>![](/images/p45.png)  
@@ -186,39 +186,39 @@ The 3 gates perform the following functions:
 The unrolled network during the forward pass is shown below. The gates have not been shown for brevity. You can see that the cell state at time T, cT is responsible for computing hT as well as the next cell state cT+1. At each time step, the cell output hT is shown to be passed to some more layers on which a cost function CT is computed, as the way an LSTM would be used in a typical application like captioning or language modeling.
 <br>![](/images/p47.png) 
  
-ht= ot⊙tanh(ct)
-ct=it⊙at+ft⊙ct−1
-zt =W×It
+*ht= ot⊙tanh(ct)*
+<br>*ct=it⊙at+ft⊙ct−1*
+<br>*zt =W×It*
 
 **Backward Pass: Unrolled Network**
 <br>![](/images/p48.png) 
-The unrolled network during the backward pass is shown above. All the arrows in the previous image have now changed their direction. The cell state at time T, cT receives gradients from hT as well as the next cell state cT +1. At any time step T, these two gradients are accumulated before being backpropagated to the layers below the cell and the previous time steps.
+<br>The unrolled network during the backward pass is shown above. All the arrows in the previous image have now changed their direction. The cell state at time T, cT receives gradients from hT as well as the next cell state cT +1. At any time step T, these two gradients are accumulated before being backpropagated to the layers below the cell and the previous time steps.
 Every gate in a circuit diagram gets some inputs and can right away compute two things: 1. its output value and 2. the local gradient of its inputs with respect to its output value.
 once the forward pass is over, during backpropagation the gate will eventually learn about the gradient of its output value on the final output of the entire circuit. Chain rule says that the gate should take that gradient and multiply it into every gradient it normally computes for all of its inputs.
 Backpropagation can be thought of as gates communicating to each other (through the gradient signal) whether they want their outputs to increase or decrease (and how strongly), so as to make the final output value higher.
+<br>
 **Backward Pass: Output**
 <br>![](/images/p49.png) 
-Since we have obtained the value of ht  from the forward pass hence for Error E, δht =∂E/∂ht. 
-Now for Backpropagation, we need to find the derivative δot,δct 
+<br>Since we have obtained the value of ht  from the forward pass hence for Error E, δht =∂E/∂ht. 
+Now for Backpropagation, we need to find the derivative δot,δct <br>
 i.	∂E/ ∂ot
 <br>![](/images/p50.png)  
 ii.	∂E/ ∂ct
 <br>![](/images/p51.png) 
-Backward Pass: LSTM Memory Cell Update
+<br>Backward Pass: LSTM Memory Cell Update
 <br>![](/images/p52.png) 
-From Forward pass, *ct=it⊙at+ft⊙ct−1*
-We know that δct=∂E/∂ct hence, we need to find δit, δat, δft, δct−1
+<br>From Forward pass, *ct=it⊙at+ft⊙ct−1*
+<br>We know that δct=∂E/∂ct hence, we need to find δit, δat, δft, δct−1
 <br>![](/images/p53.png) 
 
 **Backward Pass: Input and Gate Computation**
 <br>![](/images/p54.png)
-From Forward pass, zt =W×It
-Hence we need to find δzt ,δWt
+<br>From Forward pass, *zt =W×It*
+<br>Hence we need to find δzt ,δWt
 <br>![](/images/p55.png) 
 <br>![](/images/p56.png) 
-If input x has T time-steps, i.e. x=[x1,x2,⋯,xT], then
-<br>![](/images/p57.png) 
-W  is then updated using an appropriate Stochastic Gradient Descent solver.
+<br>If input x has T time-steps, i.e. x=[x1,x2,⋯,xT], then ![](/images/p57.png) 
+<br>W  is then updated using an appropriate Stochastic Gradient Descent solver.
 We try to break up our function into modules for which you can easily derive local gradients, and then chain them with chain rule. Crucially, we almost never want to write out these expressions on paper and differentiate them symbolically in full, because we never need an explicit mathematical equation for the gradient of the input variables. Hence, decompose our expressions into stages such that we can differentiate every stage independently (the stages will be matrix vector multiplies, or max operations, or sum operations, etc.) and then backprop through the variables one step at a time.
 
 
