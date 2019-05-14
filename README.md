@@ -17,6 +17,7 @@ In this post I will discuss the backpropagation algorithm in Different neural ne
 3.	RNN
 4.	LSTM
 For all these networks, this post will be focused on Backpropagation only. I will not dive deep into forward propagation, chain rule etc, but will use it whenever it is required.
+<br>
 ### 1.	Multi Layer Perceptrons
 The basic unit of MLP is a perceptron. Perceptron is a type of artificial neuron It takes several binary inputs, x1,x2,…x1,x2,…, and produces a single binary output. It can have more or fewer inputs. In the image below the perceptron has  three inputs, x1,x2, x3.
 <br>![](/images/p3.png)
@@ -30,20 +31,20 @@ iii.	one final layer of LTUs called the output layer.
 Every layer except the output layer includes a bias neuron and is fully connected to the next layer. Also, Except for the input nodes, each node is a neuron that uses a nonlinear activation function.
 <br>![](/images/p5.png)
 <p>
-Now, for each training instance the backpropagation algorithm first makes a prediction (*forward pass*), measures the error, then goes through each layer in reverse to measure the error contribution from each connection (*reverse pass*), and finally slightly tweaks the connection weights to reduce the error (*Gradient Descent step*). </p>
+Now, for each training instance the backpropagation algorithm first makes a prediction (forward pass), measures the error, then goes through each layer in reverse to measure the error contribution from each connection (reverse pass), and finally slightly tweaks the connection weights to reduce the error (Gradient Descent step). </p>
 
 <p>In the beginning, we initialize weights with some random values(or using suitable weight initialization method), it is not necessary that whatever weight values we have selected will be correct, or it fits our model the best. Hence, our model output is way different than our actual output i.e. the error value is huge. In order to reduce this error, the parameters needs to be modified and for this purpose  Backpropagation is used to train our model.</p>
 
-*	Calculate the error – How far is your model output from the actual output.
-*	Minimum Error – Check whether the error is minimized or not.
-*	Update the parameters – If the error is huge then, update the parameters (weights and biases). After that again check the error. Repeat the process until the error becomes minimum.
-*	Model is ready to make a prediction – Once the error becomes minimum, you can feed some inputs to your model and it will produce the output.
+*	**Calculate the error** – How far is your model output from the actual output.
+*	**Minimum Error** – Check whether the error is minimized or not.
+*	**Update the parameters** – If the error is huge then, update the parameters (weights and biases). After that again check the error. Repeat the process until the error becomes minimum.
+*	**Model is ready to make a prediction** – Once the error becomes minimum, you can feed some inputs to your model and it will produce the output.
 
 <p>Hence the basic idea behind Backpropagation algorithm is that it looks for the minimum value of the error function in weight space using gradient descent. The weights that minimize the error function is then considered to be a solution to the learning problem.</p>
 To summarize: 
 1.	Input a set of training examples
-2.	For each training example x: Set the corresponding input activation ax,1, and perform the following steps:
-*	Feedforward: For each l=2, 3 ,…, L compute   zx,l=wlax,l−1+bl and ax,l=σ(zx,l) 
+2.	For each training example x: Set the corresponding input activation ax,1 and perform the following steps:
+*	Feedforward: For each l=2, 3 ,…, L compute ![](/images/p60.PNG)
 *	Output error δx,L: Compute the vector δx,L=∇aCx⊙σ′(zx,L)
 *	Backpropagate the error: For each l=L−1, L−2, …, 2 compute δx,l=((wl+1)Tδx,l+1)⊙σ′(zx,l).
 3.	Gradient descent: For each l=L, L−1,…,2l=L,L−1,…,2 update the weights according to the rule wl→wl−η/m∑xδx,l(ax,l−1)T, and the biases according to the rule bl→bl−η/m∑xδx,l.
