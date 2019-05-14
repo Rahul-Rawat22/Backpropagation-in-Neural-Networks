@@ -75,16 +75,16 @@ Let's imagine that we've made a small change Δwljk to some weight in the networ
  
 <br>That is,
 <br>![](/images/p14.png)
-<br>This represents the change in C due to changes in the activations along this particular path through the network. For above equation we have considered only a single path. However, there are many paths by which change in wjkl can affect the cost function. To compute the total change in C it is plausible that we should sum over all the possible paths between the weight and the final cost, i.e.,</p>
+<br>This represents the change in C due to changes in the activations along this particular path through the network. For above equation we have considered only a single path. However, there are many paths by which change in wjkl can affect the cost function. To compute the total change in C it is plausible that we should sum over all the possible paths between the weight and the final cost, i.e.
 <br>![](/images/p15.png)
 <p>From above equation, it is clear that in backpropagation, we have a lot of derivative terms that are repeated multiple times. Computing these terms everytime is very costly. Hence it is a good idea to compute these terms once, store them and then use it whenever it is required. Although memory usage is increased but the computation speed increases as we do not have to compute the same derivative again and again. This process is also called as memorization. Hence Backpropagation can be defined as combination of chain rule Chain rule and Memoization </p>
 ### 2.	CNN : 
-###### Introduction
+##### Introduction
 <p>Convolutional neural networks (CNNs) are a biologically-inspired variation of the multilayer perceptrons (MLPs). Neurons in CNNs share weights unlike in MLPs where each neuron has a separate weight vector. This sharing of weights ends up reducing the overall number of trainable weights hence introducing sparsity.</p>
 <br>Below image shows the transformation of MLP to CNN
 <br>![](/images/p16.png)
 <p>Utilizing the weights sharing strategy, neurons are able to perform convolutions on the data with the convolution filter. This is then followed by a pooling operation which as a form of non-linear down-sampling, progressively reduces the spatial size of the representation thus reducing the amount of computation and parameters in the network.</p>
-<p>In CNN, for each training instance the backpropagation algorithm first makes a prediction which is called as forward pass, it measures the error, and then goes through each layer in reverse to measure the error contribution from each connection, this step is also known as reverse pass, and finally slightly tweaks the connection weights to reduce the error (Gradient Descent step).</p?
+<p>In CNN, for each training instance the backpropagation algorithm first makes a prediction which is called as forward pass, it measures the error, and then goes through each layer in reverse to measure the error contribution from each connection, this step is also known as reverse pass, and finally slightly tweaks the connection weights to reduce the error (Gradient Descent step).</p>
 <br>The image below shows the forward pass in CNN.
 <br>![](/images/p17.png)
 <p>Weights are just filters which are also called as kernels, convolution matrices, or masks. The matrix dot products are replaced by convolution operations both in feed forward and backpropagation.</p>
