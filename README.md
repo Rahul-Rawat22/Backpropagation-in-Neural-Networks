@@ -6,71 +6,78 @@ As per Wiki:<br>
 *Backpropagation, an abbreviation for “backward propagation of errors”, is a common method of training artificial neural networks used in conjunction with an optimization method such as gradient descent. The method calculates the gradient of a loss function with respect to all the weights in the network. The gradient is fed to the optimization method which in turn uses it to update the weights, in an attempt to minimize the loss function.*
 
 The simple difference between Forward and backward propagation can be clearly seen in below example.
-![p1](/images/p1.png)	 
-The forward pass above calculates output using the input variables ‘Hours Studied’ and ‘Mid term marks’. The activation function V can be any function. 
-
+![](/images/p1.jpg)	
+<br>The forward pass above calculates output using the input variables ‘Hours Studied’ and ‘Mid term marks’. The activation function V can be any function. 
+![](/images/p2.jpg)	
  
-The above figure shows the backward pass. The gradients are computed w.r.t the predicted incorrect output and the weights are updated so as to minimize the error.
+<br>The above figure shows the backward pass. The gradients are computed w.r.t the predicted incorrect output and the weights are updated so as to minimize the error.<br>
 In this post I will discuss the backpropagation algorithm in Different neural networks which are :
 1.	MLP
 2.	CNN
 3.	RNN
 4.	LSTM
 For all these networks, this post will be focused on Backpropagation only. I will not dive deep into forward propagation, chain rule etc, but will use it whenever it is required.
-1.	Multi Layer Perceptrons
-The basi unit of MLP is a perceptron. Perceptron is a type of artificial neuron It takes several binary inputs, x1,x2,…x1,x2,…, and produces a single binary output. It can have more or fewer inputs. In the image below the perceptron has  three inputs, x1,x2, x3.
- 
- 
-The forwardpass on left calculates ‘z’ as a function of ‘f(x,y)’ using the input variables ‘x’ and ‘y’. The function f can be any function. The right side of the figure shows the backward pass. Receiving ’dL/dz’, the gradients of the loss function w.r.t ‘z’ , the gradients of ‘x’ and ‘y’ on the loss function can be calculated by applying the chain rule.
+### 1.	Multi Layer Perceptrons
+The basic unit of MLP is a perceptron. Perceptron is a type of artificial neuron It takes several binary inputs, x1,x2,…x1,x2,…, and produces a single binary output. It can have more or fewer inputs. In the image below the perceptron has  three inputs, x1,x2, x3.
+<br>![](/images/p3.jpg)
+<br>![](/images/p4.jpg)
+<p>The forwardpass on left calculates ‘z’ as a function of ‘f(x,y)’ using the input variables ‘x’ and ‘y’. The function f can be any function. The right side of the figure shows the backward pass. Receiving ’dL/dz’, the gradients of the loss function w.r.t ‘z’ , the gradients of ‘x’ and ‘y’ on the loss function can be calculated by applying the chain rule.</p>
 
-As the name suggest, a multilayer perceptron (MLP) is a class of feedforward artificial neural network. A MLP consists of at least three layers of nodes: 
+<p>As the name suggest, a multilayer perceptron (MLP) is a class of feedforward artificial neural network. A MLP consists of at least three layers of nodes: 
 i.	one (passthrough) input layer, 
 ii.	one or more layers of LTUs, called hidden layers, 
 iii.	one final layer of LTUs called the output layer.
-Every layer except the output layer includes a bias neuron and is fully connected to the next layer. Also, Except for the input nodes, each node is a neuron that uses a nonlinear activation function.
- 
-A simple MLP model
-Now, for each training instance the backpropagation algorithm first makes a prediction (forward pass), measures the error, then goes through each layer in reverse to measure the error contribution from each connection (reverse pass), and finally slightly tweaks the connection weights to reduce the error (Gradient Descent step).
+Every layer except the output layer includes a bias neuron and is fully connected to the next layer. Also, Except for the input nodes, each node is a neuron that uses a nonlinear activation function.</p>
+<br>![](/images/p5.jpg)
+<p>
+Now, for each training instance the backpropagation algorithm first makes a prediction *(forward pass)*, measures the error, then goes through each layer in reverse to measure the error contribution from each connection *(reverse pass)*, and finally slightly tweaks the connection weights to reduce the error *(Gradient Descent step).*</p>
 
-In the beginning, we initialize weights with some random values(or using suitable weight initialization method), it is not necessary that whatever weight values we have selected will be correct, or it fits our model the best. Hence, our model output is way different than our actual output i.e. the error value is huge. In order to reduce this error, the parameters needs to be modified and for this purpose  Backpropagation is used to train our model.
-•	Calculate the error – How far is your model output from the actual output.
-•	Minimum Error – Check whether the error is minimized or not.
-•	Update the parameters – If the error is huge then, update the parameters (weights and biases). After that again check the error. Repeat the process until the error becomes minimum.
-•	Model is ready to make a prediction – Once the error becomes minimum, you can feed some inputs to your model and it will produce the output.
-Hence the basic idea behind Backpropagation algorithm is that it looks for the minimum value of the error function in weight space using gradient descent. The weights that minimize the error function is then considered to be a solution to the learning problem.
+<p>In the beginning, we initialize weights with some random values(or using suitable weight initialization method), it is not necessary that whatever weight values we have selected will be correct, or it fits our model the best. Hence, our model output is way different than our actual output i.e. the error value is huge. In order to reduce this error, the parameters needs to be modified and for this purpose  Backpropagation is used to train our model.</p>
+
+*	Calculate the error – How far is your model output from the actual output.
+*	Minimum Error – Check whether the error is minimized or not.
+*	Update the parameters – If the error is huge then, update the parameters (weights and biases). After that again check the error. Repeat the process until the error becomes minimum.
+*	Model is ready to make a prediction – Once the error becomes minimum, you can feed some inputs to your model and it will produce the output.
+
+<p>Hence the basic idea behind Backpropagation algorithm is that it looks for the minimum value of the error function in weight space using gradient descent. The weights that minimize the error function is then considered to be a solution to the learning problem.</p>
 To summarize: 
 1.	Input a set of training examples
 2.	For each training example x: Set the corresponding input activation ax,1, and perform the following steps:
-o	Feedforward: For each l=2, 3 ,…, L compute   zx,l=wlax,l−1+bl and ax,l=σ(zx,l) 
-o	Output error δx,L: Compute the vector δx,L=∇aCx⊙σ′(zx,L)
-o	Backpropagate the error: For each l=L−1, L−2, …, 2 compute δx,l=((wl+1)Tδx,l+1)⊙σ′(zx,l).
+*	Feedforward: For each l=2, 3 ,…, L compute   zx,l=wlax,l−1+bl and ax,l=σ(zx,l) 
+*	Output error δx,L: Compute the vector δx,L=∇aCx⊙σ′(zx,L)
+*	Backpropagate the error: For each l=L−1, L−2, …, 2 compute δx,l=((wl+1)Tδx,l+1)⊙σ′(zx,l).
 3.	Gradient descent: For each l=L, L−1,…,2l=L,L−1,…,2 update the weights according to the rule wl→wl−η/m∑xδx,l(ax,l−1)T, and the biases according to the rule bl→bl−η/m∑xδx,l.
-Here, b is bias term, l is the layer, C is the cost function
+<p>Here, b is bias term, l is the layer, C is the cost function<p>
 This can be visualized from the below figure.
+<br>![](/images/p6.jpg)
+<p>Mathematically, I will be using a notation which will let us refer to weights in the network in a simple way. We'll use wjkl to denote the weight for the connection from the kth neuron in the (l−1)th layer to the jth neuron in the lth layer. For example, the diagram below shows the weight on a connection from the fourth neuron in the second layer to the second neuron in the third layer of a network</p>
+<br>![](/images/p7.jpg)
  
-Mathematically, I will be using a notation which will let us refer to weights in the network in a simple way. We'll use wjkl to denote the weight for the connection from the kth neuron in the (l−1)th layer to the jth neuron in the lth layer. For example, the diagram below shows the weight on a connection from the fourth neuron in the second layer to the second neuron in the third layer of a network
- 
-Similarly, I will use blj for the bias of the jth neuron in the lth layer. And use alj for the activation of the jth neuron in the lth layer.
+Similarly, I will use blj for the bias of the jth neuron in the lth layer. And use alj for the activation of the jth neuron in the lth layer.<br>
 The activation a in l layer can be related to activation in  (l-1) layer using the equation 
+<br>![](/images/p8.jpg)
  
-Here, the sum is computed over all neurons k in the (l-1)th layer.
+<br>Here, the sum is computed over all neurons k in the (l-1)th layer.<br>
 The above equation can be represented in the matrix form as below.
+<br>![](/images/p9.jpg) 
  
-Hence, we just apply the weight matrix to the activations, then add the bias vector, and finally apply the σ function. This representation is easy to understand than the previous neuron to neuron equation.
+Hence, we just apply the weight matrix to the activations, then add the bias vector, and finally apply the σ function. This representation is easy to understand than the previous neuron to neuron equation.<br>
 Let's imagine that we've made a small change Δwljk to some weight in the network, wljk. Now, this change in weight will cause a change in the output activation from the corresponding neuron Δalj which can be represented as 
+<br>![](/images/p10.jpg)
  
-
-This small change will change all the  activations in the next layer:
+<p>This small change will change all the  activations in the next layer:</p>
+<br>![](/images/p11.jpg)
  
-Combining above 2 equation gives 
+<p>Combining above 2 equation gives</p> 
+<br>![](/images/p12.jpg)
+<p>These changes will in turn cause changes in the next layer, and so on all the way through to cause a change in the final layer, and then in the cost function. If the path goes through activations alj, al+1q , … , a L−1n ,aLm then the resulting expression is</p>
+<br>![](/images/p13.jpg)
  
-These changes will in turn cause changes in the next layer, and so on all the way through to cause a change in the final layer, and then in the cost function. If the path goes through activations alj, al+1q , … , a L−1n ,aLm then the resulting expression is
- 
-That is,
- 
-This represents the change in C due to changes in the activations along this particular path through the network. For above equation we have considered only a single path. However, there are many paths by which change in wjkl can affect the cost function. To compute the total change in C it is plausible that we should sum over all the possible paths between the weight and the final cost, i.e.,
- 
-From above equation, it is clear that in backpropagation, we have a lot of derivative terms that are repeated multiple times. Computing these terms everytime is very costly. Hence it is a good idea to compute these terms once, store them and then use it whenever it is required. Although memory usage is increased but the computation speed increases as we do not have to compute the same derivative again and again. This process is also called as memorization. Hence Backpropagation can be defined as combination of chain rule Chain rule and Memoization 
+<br>That is,
+<br>![](/images/p14.jpg)
+<p>This represents the change in C due to changes in the activations along this particular path through the network. For above equation we have considered only a single path. However, there are many paths by which change in wjkl can affect the cost function. To compute the total change in C it is plausible that we should sum over all the possible paths between the weight and the final cost, i.e.,</p>
+<br>![](/images/p15.jpg)
+<p>From above equation, it is clear that in backpropagation, we have a lot of derivative terms that are repeated multiple times. Computing these terms everytime is very costly. Hence it is a good idea to compute these terms once, store them and then use it whenever it is required. Although memory usage is increased but the computation speed increases as we do not have to compute the same derivative again and again. This process is also called as memorization. Hence Backpropagation can be defined as combination of chain rule Chain rule and Memoization </p>
 2.	CNN : 
 Introduction
 Convolutional neural networks (CNNs) are a biologically-inspired variation of the multilayer perceptrons (MLPs). Neurons in CNNs share weights unlike in MLPs where each neuron has a separate weight vector. This sharing of weights ends up reducing the overall number of trainable weights hence introducing sparsity.
