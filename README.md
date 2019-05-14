@@ -6,9 +6,9 @@ As per Wiki:<br>
 *Backpropagation, an abbreviation for “backward propagation of errors”, is a common method of training artificial neural networks used in conjunction with an optimization method such as gradient descent. The method calculates the gradient of a loss function with respect to all the weights in the network. The gradient is fed to the optimization method which in turn uses it to update the weights, in an attempt to minimize the loss function.*
 
 The simple difference between Forward and backward propagation can be clearly seen in below example.
-![](/images/p1.jpg)	
+![](/images/p1.png)	
 <br>The forward pass above calculates output using the input variables ‘Hours Studied’ and ‘Mid term marks’. The activation function V can be any function. 
-![](/images/p2.jpg)	
+![](/images/p2.png)	
  
 <br>The above figure shows the backward pass. The gradients are computed w.r.t the predicted incorrect output and the weights are updated so as to minimize the error.<br>
 In this post I will discuss the backpropagation algorithm in Different neural networks which are :
@@ -19,18 +19,18 @@ In this post I will discuss the backpropagation algorithm in Different neural ne
 For all these networks, this post will be focused on Backpropagation only. I will not dive deep into forward propagation, chain rule etc, but will use it whenever it is required.
 ### 1.	Multi Layer Perceptrons
 The basic unit of MLP is a perceptron. Perceptron is a type of artificial neuron It takes several binary inputs, x1,x2,…x1,x2,…, and produces a single binary output. It can have more or fewer inputs. In the image below the perceptron has  three inputs, x1,x2, x3.
-<br>![](/images/p3.jpg)
-<br>![](/images/p4.jpg)
+<br>![](/images/p3.png)
+<br>![](/images/p4.png)
 <p>The forwardpass on left calculates ‘z’ as a function of ‘f(x,y)’ using the input variables ‘x’ and ‘y’. The function f can be any function. The right side of the figure shows the backward pass. Receiving ’dL/dz’, the gradients of the loss function w.r.t ‘z’ , the gradients of ‘x’ and ‘y’ on the loss function can be calculated by applying the chain rule.</p>
 
-<p>As the name suggest, a multilayer perceptron (MLP) is a class of feedforward artificial neural network. A MLP consists of at least three layers of nodes: 
+<br>As the name suggest, a multilayer perceptron (MLP) is a class of feedforward artificial neural network. A MLP consists of at least three layers of nodes: 
 i.	one (passthrough) input layer, 
 ii.	one or more layers of LTUs, called hidden layers, 
 iii.	one final layer of LTUs called the output layer.
-Every layer except the output layer includes a bias neuron and is fully connected to the next layer. Also, Except for the input nodes, each node is a neuron that uses a nonlinear activation function.</p>
-<br>![](/images/p5.jpg)
+Every layer except the output layer includes a bias neuron and is fully connected to the next layer. Also, Except for the input nodes, each node is a neuron that uses a nonlinear activation function.
+<br>![](/images/p5.png)
 <p>
-Now, for each training instance the backpropagation algorithm first makes a prediction *(forward pass)*, measures the error, then goes through each layer in reverse to measure the error contribution from each connection *(reverse pass)*, and finally slightly tweaks the connection weights to reduce the error *(Gradient Descent step).*</p>
+Now, for each training instance the backpropagation algorithm first makes a prediction (*forward pass*), measures the error, then goes through each layer in reverse to measure the error contribution from each connection (*reverse pass*), and finally slightly tweaks the connection weights to reduce the error (*Gradient Descent step*). </p>
 
 <p>In the beginning, we initialize weights with some random values(or using suitable weight initialization method), it is not necessary that whatever weight values we have selected will be correct, or it fits our model the best. Hence, our model output is way different than our actual output i.e. the error value is huge. In order to reduce this error, the parameters needs to be modified and for this purpose  Backpropagation is used to train our model.</p>
 
@@ -47,99 +47,96 @@ To summarize:
 *	Output error δx,L: Compute the vector δx,L=∇aCx⊙σ′(zx,L)
 *	Backpropagate the error: For each l=L−1, L−2, …, 2 compute δx,l=((wl+1)Tδx,l+1)⊙σ′(zx,l).
 3.	Gradient descent: For each l=L, L−1,…,2l=L,L−1,…,2 update the weights according to the rule wl→wl−η/m∑xδx,l(ax,l−1)T, and the biases according to the rule bl→bl−η/m∑xδx,l.
-<p>Here, b is bias term, l is the layer, C is the cost function<p>
+<p>Here, b is bias term, l is the layer, C is the cost function</p>
 This can be visualized from the below figure.
-<br>![](/images/p6.jpg)
-<p>Mathematically, I will be using a notation which will let us refer to weights in the network in a simple way. We'll use wjkl to denote the weight for the connection from the kth neuron in the (l−1)th layer to the jth neuron in the lth layer. For example, the diagram below shows the weight on a connection from the fourth neuron in the second layer to the second neuron in the third layer of a network</p>
-<br>![](/images/p7.jpg)
+<br>![](/images/p6.png)
+<br>Mathematically, I will be using a notation which will let us refer to weights in the network in a simple way. We'll use wjkl to denote the weight for the connection from the kth neuron in the (l−1)th layer to the jth neuron in the lth layer. For example, the diagram below shows the weight on a connection from the fourth neuron in the second layer to the second neuron in the third layer of a network
+<br>![](/images/p7.png)
  
 Similarly, I will use blj for the bias of the jth neuron in the lth layer. And use alj for the activation of the jth neuron in the lth layer.<br>
 The activation a in l layer can be related to activation in  (l-1) layer using the equation 
-<br>![](/images/p8.jpg)
+<br>![](/images/p8.png)
  
 <br>Here, the sum is computed over all neurons k in the (l-1)th layer.<br>
 The above equation can be represented in the matrix form as below.
-<br>![](/images/p9.jpg) 
+<br>![](/images/p9.png) 
  
 Hence, we just apply the weight matrix to the activations, then add the bias vector, and finally apply the σ function. This representation is easy to understand than the previous neuron to neuron equation.<br>
 Let's imagine that we've made a small change Δwljk to some weight in the network, wljk. Now, this change in weight will cause a change in the output activation from the corresponding neuron Δalj which can be represented as 
-<br>![](/images/p10.jpg)
+<br>![](/images/p10.png)
  
-<p>This small change will change all the  activations in the next layer:</p>
-<br>![](/images/p11.jpg)
+<br>This small change will change all the  activations in the next layer:
+<br>![](/images/p11.png)
  
-<p>Combining above 2 equation gives</p> 
-<br>![](/images/p12.jpg)
-<p>These changes will in turn cause changes in the next layer, and so on all the way through to cause a change in the final layer, and then in the cost function. If the path goes through activations alj, al+1q , … , a L−1n ,aLm then the resulting expression is</p>
-<br>![](/images/p13.jpg)
+<br>Combining above 2 equation gives
+<br>![](/images/p12.png)
+<br>These changes will in turn cause changes in the next layer, and so on all the way through to cause a change in the final layer, and then in the cost function. If the path goes through activations alj, al+1q , … , a L−1n ,aLm then the resulting expression is
+<br>![](/images/p13.png)
  
 <br>That is,
-<br>![](/images/p14.jpg)
-<p>This represents the change in C due to changes in the activations along this particular path through the network. For above equation we have considered only a single path. However, there are many paths by which change in wjkl can affect the cost function. To compute the total change in C it is plausible that we should sum over all the possible paths between the weight and the final cost, i.e.,</p>
-<br>![](/images/p15.jpg)
+<br>![](/images/p14.png)
+<br>This represents the change in C due to changes in the activations along this particular path through the network. For above equation we have considered only a single path. However, there are many paths by which change in wjkl can affect the cost function. To compute the total change in C it is plausible that we should sum over all the possible paths between the weight and the final cost, i.e.,</p>
+<br>![](/images/p15.png)
 <p>From above equation, it is clear that in backpropagation, we have a lot of derivative terms that are repeated multiple times. Computing these terms everytime is very costly. Hence it is a good idea to compute these terms once, store them and then use it whenever it is required. Although memory usage is increased but the computation speed increases as we do not have to compute the same derivative again and again. This process is also called as memorization. Hence Backpropagation can be defined as combination of chain rule Chain rule and Memoization </p>
-2.	CNN : 
-Introduction
-Convolutional neural networks (CNNs) are a biologically-inspired variation of the multilayer perceptrons (MLPs). Neurons in CNNs share weights unlike in MLPs where each neuron has a separate weight vector. This sharing of weights ends up reducing the overall number of trainable weights hence introducing sparsity.
-Below image shows the transformation of MLP to CNN
- 
-Utilizing the weights sharing strategy, neurons are able to perform convolutions on the data with the convolution filter. This is then followed by a pooling operation which as a form of non-linear down-sampling, progressively reduces the spatial size of the representation thus reducing the amount of computation and parameters in the network.
-In CNN, for each training instance the backpropagation algorithm first makes a prediction which is called as forward pass, it measures the error, and then goes through each layer in reverse to measure the error contribution from each connection, this step is also known as reverse pass, and finally slightly tweaks the connection weights to reduce the error (Gradient Descent step).
-The image below shows the forward pass in CNN.
- 
-Weights are just filters which are also called as kernels, convolution matrices, or masks. The matrix dot products are replaced by convolution operations both in feed forward and backpropagation.
+### 2.	CNN : 
+######Introduction
+<p>Convolutional neural networks (CNNs) are a biologically-inspired variation of the multilayer perceptrons (MLPs). Neurons in CNNs share weights unlike in MLPs where each neuron has a separate weight vector. This sharing of weights ends up reducing the overall number of trainable weights hence introducing sparsity.</p>
+<br>Below image shows the transformation of MLP to CNN
+<br>![](/images/p16.png)
+<p>Utilizing the weights sharing strategy, neurons are able to perform convolutions on the data with the convolution filter. This is then followed by a pooling operation which as a form of non-linear down-sampling, progressively reduces the spatial size of the representation thus reducing the amount of computation and parameters in the network.</p>
+<p>In CNN, for each training instance the backpropagation algorithm first makes a prediction which is called as forward pass, it measures the error, and then goes through each layer in reverse to measure the error contribution from each connection, this step is also known as reverse pass, and finally slightly tweaks the connection weights to reduce the error (Gradient Descent step).</p?
+<br>The image below shows the forward pass in CNN.
+<br>![](/images/p17.png)
+<p>Weights are just filters which are also called as kernels, convolution matrices, or masks. The matrix dot products are replaced by convolution operations both in feed forward and backpropagation.</p>
 The convolution equation of the input at layer l is given by:
- 
+<br>![](/images/p18.png)
 Where,
 i.	oli,j is the output vector at layer l given by oli,j=f(xli,j)
 ii.	f(⋅) is the activation function.
 iii.	xli,j is the convolved input vector at layer l plus the bias represented as 
- 
+<br>![](/images/p19.png) 
 iv.	wlm,n is the weight matrix connecting neurons of layer l with neurons of layer l−1.
 
-After the forward pass, for a total of P predictions, the predicted network outputs yp and their corresponding targeted values tp the mean squared error is given by:
- 
-For the purpose of simplicity, we shall use the case where the input image is grayscale i.e single channel C=1
+<br>After the forward pass, for a total of P predictions, the predicted network outputs yp and their corresponding targeted values tp the mean squared error is given by:
+<br>![](/images/p20.png) 
+<br>For the purpose of simplicity, we shall use the case where the input image is grayscale i.e single channel C=1
 The output from the convolution procedure is as follows:
- 
-Please note that the above equation is for C=1. In case when we have 3 channels, the output convolution equation can be represented as below:
- 
-Learning in this network will be achieved by adjusting the weights such that yp is as close as possible or equals to corresponding tp. In the classical backpropagation algorithm, the weights are changed according to the gradient descent direction of an error surface E. 
- 
-Backpropagation in CNNs
-Backpropagation
-We need to perform 2 updates for Backpropagation. For weights and for Deltas. 
-We need to compute ∂E/∂wlm′,n′   which can be described as how the change in a single pixel wm′,n′ in the weight kernel affects the loss function E.
-In the below image, it is clear that the yellow pixel in kernel makes a contribution in all the products during forward propagation. This means that pixel wm′,n′ will eventually affect all the elements in the output feature map.
-
- 
-Hence, Convolution between the input feature map of dimension H×W and the weight kernel of dimension k1×k2 produces an output feature map of size (H−k1+1) by (W−k2+1). The gradient component for the individual weights can be obtained by applying the chain rule in the following way:
- ……..(1)
-Putting the value of xli,j (which is the convolved input vector at layer l plus the bias) in above equation gives
- 
-Further expanding the summations in above equation and taking the partial derivatives for all the components results in zero values for all except the components where m=m′ and n=n′ in wlm,nol−1i+m,j+n
- …(2)
-Substituting  eq 2 in eq 1 gives
- 
-The summations in Eq 3 represents a collection of all the gradients δli,j coming from all the outputs in layer l.
-To obtain the gradients w.r.t filter maps, we have a cross-correlation which is transformed into a convolution by flipping the delta matrix. the flipped delta matrix is shown below:
- 
-The diagram below shows gradients (δ11,δ12,δ21,δ22) generated during backpropagation:
- 
+<br>![](/images/p21.png) 
+<br<Please note that the above equation is for C=1. In case when we have 3 channels, the output convolution equation can be represented as below:
+<br>![](/images/p22.png)  
+<br>Learning in this network will be achieved by adjusting the weights such that yp is as close as possible or equals to corresponding tp. In the classical backpropagation algorithm, the weights are changed according to the gradient descent direction of an error surface E. 
+<br>![](/images/p23.png) 
+###### Backpropagation
+<br>We need to perform 2 updates for Backpropagation. For weights and for Deltas.Also, we need to compute ∂E/∂wlm′,n′   which can be described as how the change in a single pixel wm′,n′ in the weight kernel affects the loss function E.
+<br>In the below image, it is clear that the yellow pixel in kernel makes a contribution in all the products during forward propagation. This means that pixel wm′,n′ will eventually affect all the elements in the output feature map.
+<br>![](/images/p24.png) 
+<br>Hence, Convolution between the input feature map of dimension H×W and the weight kernel of dimension k1×k2 produces an output feature map of size (H−k1+1) by (W−k2+1). The gradient component for the individual weights can be obtained by applying the chain rule in the following way:
+<br>![](/images/p25.png)  ……..(1)
+<br>Putting the value of xli,j (which is the convolved input vector at layer l plus the bias) in above equation gives
+<br>![](/images/p26.png)  
+<br>Further expanding the summations in above equation and taking the partial derivatives for all the components results in zero values for all except the components where m=m′ and n=n′ in wlm,nol−1i+m,j+n
+<br>![](/images/p27.png)  …(2)
+<br>Substituting  eq 2 in eq 1 gives
+<br>![](/images/p28.png)  
+<br>The summations in Eq 3 represents a collection of all the gradients δli,j coming from all the outputs in layer l.
+<br>To obtain the gradients w.r.t filter maps, we have a cross-correlation which is transformed into a convolution by flipping the delta matrix. the flipped delta matrix is shown below:
+<br>![](/images/p29.png)  
+<br>The diagram below shows gradients (δ11,δ12,δ21,δ22) generated during backpropagation:
+<br>![](/images/p30.png)  
 Now we will obtain the new set of weights with convolution operation as is shown below:
- 
-During the reconstruction process, the deltas (δ11,δ12,δ21,δ22) are used. These deltas are provided by an equation of the form:
- 
- 
-From the diagram above, we can see that region in the output which is affected by pixel xi′,j′ from the input is the region in the output bounded by the dashed lines where the top left corner pixel is given by (i′−k1+1,j′−k2+1) and the bottom right corner pixel is given by (i′,j′).
-Using chain rule and introducing sums give us the following equation:
- 
+<br>![](/images/p31.png)  
+<br>During the reconstruction process, the deltas (δ11,δ12,δ21,δ22) are used. These deltas are provided by an equation of the form:
+<br>![](/images/p32.png)  
+<br>![](/images/p33.png)   
+<br>From the diagram above, we can see that region in the output which is affected by pixel xi′,j′ from the input is the region in the output bounded by the dashed lines where the top left corner pixel is given by (i′−k1+1,j′−k2+1) and the bottom right corner pixel is given by (i′,j′).
+<br>Using chain rule and introducing sums give us the following equation:
+<br>![](/images/p34.png)  
 replacing the value of xl+1i′−m,j′−n  and expanding this part of the equation gives us:
- 
-taking the partial derivatives for all the components results in zero values for all except the components where m′=m and n′=n, so that f(xli′−m+m′,j′−n+n′) becomes f(xli′,j′) and wl+1m′,n′ becomes wl+1m,n
- 
-For backpropagation, we make use of the flipped kernel and as a result we will now have a convolution that is expressed as a cross-correlation with a flipped kernel:
- 
+<br>![](/images/p35.png)   
+<br>Taking the partial derivatives for all the components results in zero values for all except the components where m′=m and n′=n, so that f(xli′−m+m′,j′−n+n′) becomes f(xli′,j′) and wl+1m′,n′ becomes wl+1m,n
+<br>![](/images/p36.png)  
+<br>For backpropagation, we make use of the flipped kernel and as a result we will now have a convolution that is expressed as a cross-correlation with a flipped kernel:
+<br>![](/images/p37.png)   
 The above equation is the backpropagation equation in case on CNN. 
 3.	Recurrent Neural Networks
 The idea behind RNNs is to make use of sequential information. In a traditional neural network, we assume that all inputs and outputs are independent of each other. But for certain tasks such as to predict the next word in a sentence we need to know which words came before it. RNN perform the same task for every element of a sequence, with the output being depended on the previous computations. We can think of RNN’s of having a ‘Memory’, which captures information about what has been calculated so far.
