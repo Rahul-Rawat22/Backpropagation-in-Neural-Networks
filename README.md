@@ -228,12 +228,12 @@ We saw how backpropagation works in different types of Neural network. Although 
 Also, backpropagation works if and only if the activation functions used are differentiable. We should select the activation function whose derivative is faster to compute. Faster the speed of computing derivative, faster is backpropagation. Also, keeping all the datapoints in RAM and computing derivatives is not memory efficient. Hence, minibatch based backpropagation is used. 
 
 *References:*
-http://cs231n.github.io/optimization-2/
-https://www.edureka.co/blog/backpropagation/
-http://neuralnetworksanddeeplearning.com/chap2.html
-https://medium.com/@jayeshbahire/perceptron-and-backpropagation-970d752f4e44
-https://becominghuman.ai/back-propagation-in-convolutional-neural-networks-intuition-and-code-714ef1c38199
-https://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/
-https://grzegorzgwardys.wordpress.com/2016/04/22/8/
-http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/
+http://cs231n.github.io/optimization-2/<br>
+https://www.edureka.co/blog/backpropagation/<br>
+http://neuralnetworksanddeeplearning.com/chap2.html<br>
+https://medium.com/@jayeshbahire/perceptron-and-backpropagation-970d752f4e44<br>
+https://becominghuman.ai/back-propagation-in-convolutional-neural-networks-intuition-and-code-714ef1c38199<br>
+https://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/<br>
+https://grzegorzgwardys.wordpress.com/2016/04/22/8/<br>
+http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/<br>
 
