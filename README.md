@@ -45,9 +45,9 @@ To summarize:
 1.	Input a set of training examples
 2.	For each training example x: Set the corresponding input activation ax,1 and perform the following steps:
 *	Feedforward: For each l=2, 3 ,…, L compute ![](/images/p60.PNG)
-*	Output error δx,L: Compute the vector δx,L=∇aCx⊙σ′(zx,L)
-*	Backpropagate the error: For each l=L−1, L−2, …, 2 compute δx,l=((wl+1)Tδx,l+1)⊙σ′(zx,l).
-3.	Gradient descent: For each l=L, L−1,…,2l=L,L−1,…,2 update the weights according to the rule wl→wl−η/m∑xδx,l(ax,l−1)T, and the biases according to the rule bl→bl−η/m∑xδx,l.
+*	Output error δx,L: Compute the vector ![](/images/p61.PNG)
+*	Backpropagate the error: For each l=L−1, L−2, …, 2 compute ![](/images/p62.PNG)
+3.	Gradient descent: For each l=L, L−1,…,2l=L,L−1,…,2 update the weights according to the rule ![](/images/p63.PNG), and the biases according to the rule ![](/images/p64.PNG).
 <p>Here, b is bias term, l is the layer, C is the cost function</p>
 This can be visualized from the below figure.
 <br>![](/images/p6.png)
