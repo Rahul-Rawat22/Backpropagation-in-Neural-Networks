@@ -6,7 +6,7 @@ As per Wiki:<br>
 *Backpropagation, an abbreviation for “backward propagation of errors”, is a common method of training artificial neural networks used in conjunction with an optimization method such as gradient descent. The method calculates the gradient of a loss function with respect to all the weights in the network. The gradient is fed to the optimization method which in turn uses it to update the weights, in an attempt to minimize the loss function.*
 
 The simple difference between Forward and backward propagation can be clearly seen in below example.
-![](/images/p1.png)	
+![align="center"](/images/p1.png)	
 <br>The forward pass above calculates output using the input variables ‘Hours Studied’ and ‘Mid term marks’. The activation function V can be any function. 
 ![](/images/p2.png)	
  
@@ -19,8 +19,8 @@ In this post I will discuss the backpropagation algorithm in Different neural ne
 For all these networks, this post will be focused on Backpropagation only. I will not dive deep into forward propagation, chain rule etc, but will use it whenever it is required.
 ### 1.	Multi Layer Perceptrons
 The basic unit of MLP is a perceptron. Perceptron is a type of artificial neuron It takes several binary inputs, x1,x2,…x1,x2,…, and produces a single binary output. It can have more or fewer inputs. In the image below the perceptron has  three inputs, x1,x2, x3.
-<br>![](/images/p3.png)
-<br>![](/images/p4.png)
+<br>![align="center"](/images/p3.png)
+<br>![align="center"](/images/p4.png)
 <p>The forwardpass on left calculates ‘z’ as a function of ‘f(x,y)’ using the input variables ‘x’ and ‘y’. The function f can be any function. The right side of the figure shows the backward pass. Receiving ’dL/dz’, the gradients of the loss function w.r.t ‘z’ , the gradients of ‘x’ and ‘y’ on the loss function can be calculated by applying the chain rule.</p>
 
 <br>As the name suggest, a multilayer perceptron (MLP) is a class of feedforward artificial neural network. A MLP consists of at least three layers of nodes: 
